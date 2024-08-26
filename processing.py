@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 
 
+# TODO - revert verify=False and add fix for making HTTPs calls
 def fetch_wikipedia_image(title):
     """Fetch the first image from Wikipedia for a given title."""
     url = f'https://en.wikipedia.org/api/rest_v1/page/summary/{title}'
