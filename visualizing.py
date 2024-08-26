@@ -1,4 +1,3 @@
-# visualizing.py
 import folium
 import matplotlib.pyplot as plt
 
@@ -14,8 +13,9 @@ def create_map(df):
             [f'<img src="{img}" alt="Image" style="width:150px;height:auto;"><br>' for img in row['Images']])
         popup_content = f"""
         <strong>{row['Name']}</strong><br>
-        Type: {row['Type']}<br>
+        Continent: {row['Continent']}<br>
         Country: {row['Country']}<br>
+        Type: {row['Type']}<br>
         Budget: {row['Budget']} billion USD<br>
         ETA: {row['ETA']}<br>
         {image_tags}
@@ -41,16 +41,16 @@ def create_svg_chart(df):
     # Filter the data to get only the projects
     df_projects = df[df['Type'] == 'Projects']
 
-    # Aggregate the data by country
-    budget_by_country = df_projects.groupby('Country')['Budget'].sum().sort_values(ascending=False)
+    # Aggregate the data by continent and country
+    budget_by_continent = df_projects.groupby(['Continent', 'Country'])['Budget'].sum().sort_values(ascending=False)
 
     # Create a bar chart
     fig, ax = plt.subplots(figsize=(10, 6))
-    budget_by_country.plot(kind='bar', color='skyblue', ax=ax)
+    budget_by_continent.plot(kind='bar', color='skyblue', ax=ax)
 
     # Add titles and labels
-    ax.set_title('Project Budgets by Country')
-    ax.set_xlabel('Country')
+    ax.set_title('Project Budgets by Continent and Country')
+    ax.set_xlabel('Continent, Country')
     ax.set_ylabel('Budget (in billion USD)')
 
     return fig

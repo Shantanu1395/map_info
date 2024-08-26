@@ -3,6 +3,7 @@ FROM python:3.9
 
 # Install ca-certificates package(for making https calls)
 RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir certifi
 
 # Set the working directory in the container
 WORKDIR /app
