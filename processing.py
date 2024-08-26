@@ -6,7 +6,7 @@ import requests
 def fetch_wikipedia_image(title):
     """Fetch the first image from Wikipedia for a given title."""
     url = f'https://en.wikipedia.org/api/rest_v1/page/summary/{title}'
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     if response.status_code == 200:
         data = response.json()
         if 'thumbnail' in data and 'source' in data['thumbnail']:
